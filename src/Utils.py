@@ -11,6 +11,10 @@ import IpGetter
 import platform
 import  subprocess
 import json
+import datetime
+import os
+os.chdir(os.path.dirname(os.path.abspath(__file__)))
+#切换到当前路径
 from AcsClientSingleton import AcsClientSing
 from CommonRequestSingleton import CommonRequestSing
 class Utils:
@@ -72,3 +76,10 @@ class Utils:
         with open('config.json') as file:
             jsonStr = json.loads(file.read())
         return jsonStr
+    #判断是否成功，写入日志
+    def writeLog(stau,reason):
+        if str(reason=='失败'):
+            with open('log.txt','a') as file_object:
+                file_object.write(str(datetime.datetime.now())+"  "+stau+"  "+reason+"\n")
+        else:
+                file_object.write(str(datetime.datetime.now())+"  "+stau+"  "+reason+"\n")
